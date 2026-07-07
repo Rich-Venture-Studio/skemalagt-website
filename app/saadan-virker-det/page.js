@@ -12,8 +12,8 @@ const audience = ['Rengøring', 'VVS', 'Elektrikere', 'Facility management', 'Fi
 const steps = [
   {
     n: '1',
-    title: 'Forbind jeres ERP',
-    body: 'I forbinder jeres eksisterende system, f.eks. Ordrestyring, så data flyder automatisk.',
+    title: 'Vi forbinder jeres ERP',
+    body: 'Skemalagt kobler sig op på jeres eksisterende system, f.eks. Ordrestyring. I skal ikke bruge teknisk viden, det klarer vi for jer.',
   },
   {
     n: '2',
@@ -23,12 +23,12 @@ const steps = [
   {
     n: '3',
     title: 'Automatisk planlægning',
-    body: 'Vagtplaner og ruter sættes automatisk op ud fra kompetencer, tilgængelighed og lokation.',
+    body: 'Opgaver og skemaer allokeres automatisk ud fra medarbejdernes kompetencer, tilgængelighed og lokation.',
   },
   {
     n: '4',
-    title: 'Medarbejdere får plan på mobil',
-    body: 'Teknikerne ser deres opdaterede skema og ruter direkte på mobilen.',
+    title: 'Skemaet tilbage i jeres ERP',
+    body: 'Det færdige skema sendes automatisk tilbage til jeres eksisterende system, så medarbejderne ser det der hvor de plejer, uden en ny app at holde styr på.',
   },
   {
     n: '5',
@@ -39,8 +39,8 @@ const steps = [
 
 const benefits = [
   'Spar 5-11 timer ugentligt',
-  '25% mindre nedetid',
-  'Færre fejl',
+  'Mere effektive teknikere',
+  'Mindre brændstofforbrug',
   'Bedre udnyttelse',
   'Hurtigere svartid',
   'Fuld synlighed',

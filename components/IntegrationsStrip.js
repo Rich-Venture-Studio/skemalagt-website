@@ -10,7 +10,7 @@ export default function IntegrationsStrip() {
           <img
             src="/ordrestyring-logo.png"
             alt="Ordrestyring"
-            className="h-16 w-auto object-contain"
+            className="h-28 sm:h-32 w-auto object-contain"
           />
         </div>
         <p className="mt-6 text-sm text-teal-900/60">

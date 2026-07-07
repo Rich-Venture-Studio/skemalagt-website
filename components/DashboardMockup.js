@@ -58,27 +58,28 @@ export default function DashboardMockup() {
         ))}
       </div>
 
-      {/* opgave-tabel */}
-      <div className="px-4 pb-4 overflow-x-auto">
-        <table className="w-full text-left text-xs sm:text-sm">
+      {/* opgave-tabel - "Type" skjules på små skærme, kunde-navn trunkeres i stedet for
+          at tvinge sidescroll, så kortet altid fylder inden for skærmbredden */}
+      <div className="px-4 pb-4">
+        <table className="w-full text-left text-xs sm:text-sm table-fixed sm:table-auto">
           <thead>
             <tr className="text-cream/50 border-b border-cream/10">
-              <th className="py-2 pr-4 font-medium">Kunde</th>
-              <th className="py-2 pr-4 font-medium">Tekniker</th>
-              <th className="py-2 pr-4 font-medium">Type</th>
-              <th className="py-2 pr-4 font-medium">Status</th>
+              <th className="py-2 pr-2 sm:pr-4 font-medium w-[38%] sm:w-auto">Kunde</th>
+              <th className="py-2 pr-2 sm:pr-4 font-medium">Tekniker</th>
+              <th className="py-2 pr-2 sm:pr-4 font-medium hidden sm:table-cell">Type</th>
+              <th className="py-2 pr-2 sm:pr-4 font-medium">Status</th>
               <th className="py-2 font-medium">Tid</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r) => (
               <tr key={r.customer} className="border-b border-cream/5 last:border-0 text-cream/90">
-                <td className="py-2.5 pr-4 whitespace-nowrap">{r.customer}</td>
-                <td className="py-2.5 pr-4">{r.tech}</td>
-                <td className="py-2.5 pr-4">{r.type}</td>
-                <td className="py-2.5 pr-4">
+                <td className="py-2.5 pr-2 sm:pr-4 truncate">{r.customer}</td>
+                <td className="py-2.5 pr-2 sm:pr-4 truncate">{r.tech}</td>
+                <td className="py-2.5 pr-4 hidden sm:table-cell">{r.type}</td>
+                <td className="py-2.5 pr-2 sm:pr-4">
                   {r.status === 'Bekræftet' ? (
-                    <span className="inline-block bg-copper text-white text-[11px] font-semibold px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                    <span className="inline-block bg-copper text-white text-[11px] font-semibold px-2 sm:px-2.5 py-0.5 rounded-full whitespace-nowrap">
                       {r.status}
                     </span>
                   ) : (

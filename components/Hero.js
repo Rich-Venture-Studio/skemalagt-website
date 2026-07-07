@@ -4,7 +4,7 @@ import DashboardMockup from './DashboardMockup'
 export default function Hero() {
   return (
     <section className="bg-teal-900 text-cream">
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="mx-auto max-w-7xl px-6 py-14 lg:py-28 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         <div>
           <span className="inline-block bg-copper/15 text-copper-light text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full border border-copper/30">
             BYGGET TIL DANSKE HÅNDVÆRKS- OG SERVICEVIRKSOMHEDER
