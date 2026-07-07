@@ -6,7 +6,12 @@ export default function IntegrationsStrip() {
           Integrerer med førende systemer
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-          <span className="text-xl font-bold text-teal-900/70">Ordrestyring</span>
+          {/* logo-fil skal ligge i /public/ordrestyring-logo.png */}
+          <img
+            src="/ordrestyring-logo.png"
+            alt="Ordrestyring"
+            className="h-16 w-auto object-contain"
+          />
         </div>
         <p className="mt-6 text-sm text-teal-900/60">
           Og mange flere på sigt – vi kan integrere med jeres system

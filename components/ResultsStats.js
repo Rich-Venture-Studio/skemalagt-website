@@ -18,7 +18,7 @@ export default function ResultsStats() {
           ))}
         </div>
         <p className="mt-10 text-xs text-cream/40">
-          Baseret på gennemsnitlige resultater hos vores nuværende kunder.
+          Baseret på akademiske estimater for tidsbesparelse og effektivisering i servicebranchen.
         </p>
       </div>
     </section>
