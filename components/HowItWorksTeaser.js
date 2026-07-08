@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import CalendarMockup from './CalendarMockup'
 
 const steps = [
   {
@@ -34,6 +35,13 @@ export default function HowItWorksTeaser() {
             </div>
           ))}
         </div>
+        <p className="mt-16 text-center text-cream/60">
+          Systemet optimerer opgaver, ruter og vagtplaner automatisk, hele ugen på én gang:
+        </p>
+        <div className="mt-6">
+          <CalendarMockup />
+        </div>
+
         <div className="mt-12 text-center">
           <Link
             href="/saadan-virker-det"
