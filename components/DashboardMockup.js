@@ -1,30 +1,23 @@
 // dashboard-mockup til hero - ægte JSX, ingen billeder/emojis/unicode-piktogrammer.
-// v2: kombination af rute-liste + stiliseret kort, inspireret af rigtige app-skærmbilleder
-// (Ruter-siden og kalenderen). Alt stablet lodret ved alle skærmbredder med det samme
-// for at undgå den overflow/klip-fejl vi ramte sidst med en bred tabel i et fast kort.
+// v3: kort-liste over 3 teknikere/8 opgaver + et VRP-inspireret rute-diagram (depot i midten,
+// tre farvede ruter der grener ud), i stil med det klassiske "vehicle routing"-diagram.
+// Ren SVG med markers til pile - ingen ekstern kort-tjeneste.
 
-const stops = [
-  {
-    n: '1',
-    dotClass: 'bg-cream text-teal-900',
-    name: 'Frank',
-    role: 'VVS-tekniker',
-    time: '09:00–10:15',
-    task: 'Kedelservice',
-    address: 'Lindevej 12, Hansen VVS ApS',
-  },
-  {
-    n: '2',
-    dotClass: 'bg-copper text-white',
-    name: 'Anders',
-    role: 'Elektriker',
-    time: '13:00–14:00',
-    task: 'Fejlsøgning',
-    address: 'Havnegade 5, El-Centrum A/S',
-  },
+const techs = [
+  { name: 'Frank', role: 'VVS-tekniker', jobs: '3 opgaver', from: 'fra 08:30', color: 'bg-copper' },
+  { name: 'Anders', role: 'Elektriker', jobs: '3 opgaver', from: 'fra 09:00', color: 'bg-cream' },
+  { name: 'Michael', role: 'Tømrer', jobs: '2 opgaver', from: 'fra 10:00', color: 'bg-copper-light' },
 ]
 
 const filters = ['Alle teknikere', 'I dag', 'Alle typer']
+
+// tre ruter ud fra ét depot, otte stop i alt - matcher techs-listen ovenfor
+const routes = [
+  { color: '#C6743A', markerId: 'arrowCopper', stops: [[140, 55], [82, 42], [46, 92]], nums: [1, 2, 3] },
+  { color: '#0D3B44', markerId: 'arrowTeal', stops: [[292, 66], [347, 102], [368, 164]], nums: [4, 5, 6] },
+  { color: '#E3986A', markerId: 'arrowCopperLight', stops: [[152, 198], [232, 214]], nums: [7, 8] },
+]
+const depot = [200, 122]
 
 export default function DashboardMockup() {
   return (
@@ -51,65 +44,90 @@ export default function DashboardMockup() {
         ))}
       </div>
 
-      {/* kompakt rute-liste - to stop, matcher rigtige rute-navne/adresser fra resten af sitet */}
-      <div className="px-4 pb-4 space-y-3">
-        {stops.map((s) => (
-          <div key={s.n} className="flex items-start gap-3">
-            <span
-              className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${s.dotClass}`}
-            >
-              {s.n}
+      {/* teknikere - farvet prik matcher rute-farven i kortet nedenfor */}
+      <div className="px-4 pb-3 flex flex-col gap-2">
+        {techs.map((t) => (
+          <div key={t.name} className="flex items-center gap-2.5 text-sm">
+            <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${t.color}`} />
+            <span className="text-cream font-semibold">{t.name}</span>
+            <span className="text-cream/50">— {t.role}</span>
+            <span className="text-cream/50 ml-auto text-xs">
+              {t.jobs} · {t.from}
             </span>
-            <div className="min-w-0">
-              <p className="text-cream text-sm font-semibold truncate">
-                {s.name} <span className="text-cream/50 font-normal">— {s.role}</span>
-              </p>
-              <p className="text-cream/70 text-xs mt-0.5">
-                {s.time} · {s.task}
-              </p>
-              <p className="text-cream/50 text-xs truncate">{s.address}</p>
-            </div>
           </div>
         ))}
       </div>
 
-      {/* stiliseret "kort" med rute mellem de to stop - ren SVG, ingen ekstern map-tjeneste */}
-      <div className="mx-4 mb-4 rounded-lg overflow-hidden h-44">
-        <svg viewBox="0 0 400 220" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="220" fill="#E8E2D6" />
-          {/* park */}
-          <rect x="40" y="28" width="80" height="58" rx="12" fill="#CFE0C6" />
-          {/* vand */}
-          <path d="M280 0 L400 35 L400 100 L300 55 Z" fill="#C7DCE8" />
-          {/* små veje */}
-          <line x1="0" y1="70" x2="400" y2="70" stroke="#FFFFFF" strokeWidth="3" opacity="0.7" />
-          <line x1="0" y1="140" x2="400" y2="150" stroke="#FFFFFF" strokeWidth="3" opacity="0.7" />
-          <line x1="120" y1="0" x2="100" y2="220" stroke="#FFFFFF" strokeWidth="3" opacity="0.7" />
-          <line x1="260" y1="0" x2="280" y2="220" stroke="#FFFFFF" strokeWidth="3" opacity="0.7" />
-          {/* optimeret rute */}
-          <path
-            d="M60 158 C 120 118, 150 190, 210 130 S 320 70, 355 95"
-            fill="none"
-            stroke="#C6743A"
-            strokeWidth="4"
-            strokeLinecap="round"
-          />
-          {/* stop-markører */}
-          <circle cx="60" cy="158" r="9" fill="#0D3B44" stroke="#FFFFFF" strokeWidth="2.5" />
-          <text x="60" y="162" textAnchor="middle" fontSize="10" fontWeight="700" fill="#F4F1EC">
-            1
-          </text>
-          <circle cx="355" cy="95" r="9" fill="#C6743A" stroke="#FFFFFF" strokeWidth="2.5" />
-          <text x="355" y="99" textAnchor="middle" fontSize="10" fontWeight="700" fill="#FFFFFF">
-            2
+      {/* rute-diagram: depot i midten, tre farvede ruter grener ud til i alt 8 stop */}
+      <div className="mx-4 mb-4 rounded-lg overflow-hidden bg-[#F1ECE2] h-48">
+        <svg viewBox="0 0 400 240" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            {routes.map((r) => (
+              <marker
+                key={r.markerId}
+                id={r.markerId}
+                viewBox="0 0 10 10"
+                refX="8"
+                refY="5"
+                markerWidth="5"
+                markerHeight="5"
+                orient="auto-start-reverse"
+              >
+                <path d="M0,0 L10,5 L0,10 z" fill={r.color} />
+              </marker>
+            ))}
+          </defs>
+
+          {routes.map((r) => {
+            const points = [depot, ...r.stops]
+            return (
+              <g key={r.markerId}>
+                {points.slice(0, -1).map((p, i) => {
+                  const next = points[i + 1]
+                  return (
+                    <line
+                      key={i}
+                      x1={p[0]}
+                      y1={p[1]}
+                      x2={next[0]}
+                      y2={next[1]}
+                      stroke={r.color}
+                      strokeWidth="2.5"
+                      markerEnd={`url(#${r.markerId})`}
+                    />
+                  )
+                })}
+                {r.stops.map((s, i) => (
+                  <g key={i}>
+                    <circle cx={s[0]} cy={s[1]} r="10" fill={r.color} stroke="#F1ECE2" strokeWidth="2.5" />
+                    <text
+                      x={s[0]}
+                      y={s[1] + 4}
+                      textAnchor="middle"
+                      fontSize="10"
+                      fontWeight="700"
+                      fill="#FFFFFF"
+                    >
+                      {r.nums[i]}
+                    </text>
+                  </g>
+                ))}
+              </g>
+            )
+          })}
+
+          {/* depot */}
+          <circle cx={depot[0]} cy={depot[1]} r="16" fill="#F1ECE2" stroke="#C6743A" strokeWidth="3" />
+          <text x={depot[0]} y={depot[1] + 5} textAnchor="middle" fontSize="13" fontWeight="700" fill="#0D3B44">
+            D
           </text>
         </svg>
       </div>
 
       {/* footer-statistik */}
       <div className="bg-teal-950 px-4 py-3 flex flex-wrap gap-x-6 gap-y-1 text-xs">
-        <span className="text-cream/70">12 ruter i dag</span>
-        <span className="text-cream/70">8 medarbejdere</span>
+        <span className="text-cream/70">3 ruter i dag</span>
+        <span className="text-cream/70">8 opgaver</span>
         <span className="text-copper font-semibold">94% effektivitet</span>
       </div>
     </div>

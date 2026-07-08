@@ -18,8 +18,8 @@ export default function Hero() {
 
           <p className="mt-6 text-lg text-cream/80 max-w-xl">
             Spar op til 2 timers planlægning om dagen. Skemalagt sætter automatisk skema og ruter
-            ud fra medarbejdernes kompetencer, tilgængelighed og lokation, og opdaterer sig selv
-            når noget ændrer sig.
+            ud fra medarbejdernes kompetencer, tilgængelighed, lokation og myldretid, og
+            opdaterer sig selv når noget ændrer sig.
           </p>
 
           <div className="mt-8">

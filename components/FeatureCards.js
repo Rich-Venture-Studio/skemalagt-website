@@ -7,7 +7,7 @@ const features = [
   },
   {
     title: 'Ruteoptimering',
-    body: 'Algoritmisk optimerede ruter der sparer tid og brændstof hele dagen.',
+    body: 'Algoritmisk optimerede ruter der tager højde for myldretid og sparer tid og brændstof hele dagen.',
   },
   {
     title: 'Kundeportal',
