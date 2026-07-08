@@ -1,7 +1,11 @@
 // dashboard-mockup til hero - ægte JSX, ingen billeder/emojis/unicode-piktogrammer.
-// v3: kort-liste over 3 teknikere/8 opgaver + et VRP-inspireret rute-diagram (depot i midten,
-// tre farvede ruter der grener ud), i stil med det klassiske "vehicle routing"-diagram.
-// Ren SVG med markers til pile - ingen ekstern kort-tjeneste.
+// v4: rettet to ting fra sidste runde:
+// 1) pilene endte inde i destinations-cirklerne fordi linjerne gik helt til centrum og
+//    marker-størrelsen skalerede med streg-tykkelsen - linjer trimmes nu til at stoppe ved
+//    cirklens kant, og pile har en fast absolut størrelse (markerUnits="userSpaceOnUse").
+// 2) kortet blev stukket skævt for at fylde boksen ud - boksen har nu samme billedformat
+//    som SVG'ens viewBox (aspect-ratio i stedet for fast højde), så den altid passer uden
+//    at skulle strække eller beskære noget.
 
 const techs = [
   { name: 'Frank', role: 'VVS-tekniker', jobs: '3 opgaver', from: 'fra 08:30', color: 'bg-copper' },
@@ -18,6 +22,18 @@ const routes = [
   { color: '#E3986A', markerId: 'arrowCopperLight', stops: [[152, 198], [232, 214]], nums: [1, 2] },
 ]
 const depot = [200, 122]
+const STOP_R = 11
+const DEPOT_R = 16
+
+// trimmer linjens slutpunkt så den stopper lige uden for målcirklens kant, i stedet for
+// at gå helt ind til centrum (det er det der fik pilene til at forsvinde ind i cirklerne)
+function trimToEdge(from, to, radius, gap = 1.5) {
+  const dx = to[0] - from[0]
+  const dy = to[1] - from[1]
+  const dist = Math.sqrt(dx * dx + dy * dy) || 1
+  const t = (dist - radius - gap) / dist
+  return [from[0] + dx * t, from[1] + dy * t]
+}
 
 export default function DashboardMockup() {
   return (
@@ -58,23 +74,22 @@ export default function DashboardMockup() {
         ))}
       </div>
 
-      {/* rute-diagram: depot i midten, tre farvede ruter grener ud til i alt 8 stop */}
-      <div className="mx-4 mb-4 rounded-lg overflow-hidden bg-[#F1ECE2] h-48">
-        <svg
-          viewBox="0 0 400 240"
-          className="block w-full h-full"
-          preserveAspectRatio="none"
-        >
+      {/* rute-diagram: depot i midten, tre farvede ruter grener ud til i alt 8 stop.
+          aspect-[5/3] matcher viewBox 400x240 nøjagtigt, så kortet altid fylder boksen
+          uden at skulle strækkes eller beskæres */}
+      <div className="mx-4 mb-4 rounded-lg overflow-hidden bg-[#F1ECE2] aspect-[5/3]">
+        <svg viewBox="0 0 400 240" className="block w-full h-full">
           <defs>
             {routes.map((r) => (
               <marker
                 key={r.markerId}
                 id={r.markerId}
                 viewBox="0 0 10 10"
-                refX="8"
+                refX="8.5"
                 refY="5"
-                markerWidth="7"
-                markerHeight="7"
+                markerWidth="8"
+                markerHeight="8"
+                markerUnits="userSpaceOnUse"
                 orient="auto-start-reverse"
               >
                 <path d="M0,0 L10,5 L0,10 z" fill={r.color} />
@@ -82,7 +97,7 @@ export default function DashboardMockup() {
             ))}
           </defs>
 
-          {/* fuld baggrund - kortets "grund", så der ikke kan opstå huller i hjørnerne */}
+          {/* fuld baggrund - kortets "grund" */}
           <rect x="0" y="0" width="400" height="240" fill="#F1ECE2" />
 
           {/* kort-baggrund: park, vand og et par lyse "veje" så ruterne ser ud til at ligge på et kort */}
@@ -102,32 +117,38 @@ export default function DashboardMockup() {
               <g key={r.markerId}>
                 {points.slice(0, -1).map((p, i) => {
                   const next = points[i + 1]
+                  const end = trimToEdge(p, next, STOP_R)
                   return (
                     <line
                       key={i}
                       x1={p[0]}
                       y1={p[1]}
-                      x2={next[0]}
-                      y2={next[1]}
+                      x2={end[0]}
+                      y2={end[1]}
                       stroke={r.color}
                       strokeWidth="2.5"
                       markerEnd={`url(#${r.markerId})`}
                     />
                   )
                 })}
-                {/* retur til depot - samme streg-stil som resten, pilen viser retningen hjem */}
-                <line
-                  x1={last[0]}
-                  y1={last[1]}
-                  x2={depot[0]}
-                  y2={depot[1]}
-                  stroke={r.color}
-                  strokeWidth="2.5"
-                  markerEnd={`url(#${r.markerId})`}
-                />
+                {/* retur til depot - samme streg-stil, pilen viser retningen hjem */}
+                {(() => {
+                  const end = trimToEdge(last, depot, DEPOT_R)
+                  return (
+                    <line
+                      x1={last[0]}
+                      y1={last[1]}
+                      x2={end[0]}
+                      y2={end[1]}
+                      stroke={r.color}
+                      strokeWidth="2.5"
+                      markerEnd={`url(#${r.markerId})`}
+                    />
+                  )
+                })()}
                 {r.stops.map((s, i) => (
                   <g key={i}>
-                    <circle cx={s[0]} cy={s[1]} r="10" fill={r.color} stroke="#F1ECE2" strokeWidth="2.5" />
+                    <circle cx={s[0]} cy={s[1]} r={STOP_R} fill={r.color} stroke="#F1ECE2" strokeWidth="2.5" />
                     <text
                       x={s[0]}
                       y={s[1] + 4}
@@ -144,8 +165,8 @@ export default function DashboardMockup() {
             )
           })}
 
-          {/* depot */}
-          <circle cx={depot[0]} cy={depot[1]} r="16" fill="#F1ECE2" stroke="#C6743A" strokeWidth="3" />
+          {/* depot - tegnes sidst så den dækker pænt over alle rute-starter */}
+          <circle cx={depot[0]} cy={depot[1]} r={DEPOT_R} fill="#F1ECE2" stroke="#C6743A" strokeWidth="3" />
           <text x={depot[0]} y={depot[1] + 5} textAnchor="middle" fontSize="13" fontWeight="700" fill="#0D3B44">
             D
           </text>
