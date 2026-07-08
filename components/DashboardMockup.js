@@ -14,8 +14,8 @@ const filters = ['Alle teknikere', 'I dag', 'Alle typer']
 // tre ruter ud fra ét depot, otte stop i alt - matcher techs-listen ovenfor
 const routes = [
   { color: '#C6743A', markerId: 'arrowCopper', stops: [[140, 55], [82, 42], [46, 92]], nums: [1, 2, 3] },
-  { color: '#0D3B44', markerId: 'arrowTeal', stops: [[292, 66], [347, 102], [368, 164]], nums: [4, 5, 6] },
-  { color: '#E3986A', markerId: 'arrowCopperLight', stops: [[152, 198], [232, 214]], nums: [7, 8] },
+  { color: '#0D3B44', markerId: 'arrowTeal', stops: [[292, 66], [347, 102], [368, 164]], nums: [1, 2, 3] },
+  { color: '#E3986A', markerId: 'arrowCopperLight', stops: [[152, 198], [232, 214]], nums: [1, 2] },
 ]
 const depot = [200, 122]
 
@@ -78,8 +78,19 @@ export default function DashboardMockup() {
             ))}
           </defs>
 
+          {/* kort-baggrund: park, vand og et par lyse "veje" så ruterne ser ud til at ligge på et kort */}
+          <rect x="8" y="8" width="95" height="55" rx="10" fill="#CFE0C6" opacity="0.8" />
+          <path d="M330 0 L400 25 L400 90 L350 60 Z" fill="#C7DCE8" opacity="0.8" />
+          <rect x="300" y="175" width="100" height="65" rx="10" fill="#CFE0C6" opacity="0.6" />
+          <line x1="0" y1="30" x2="400" y2="30" stroke="#FFFFFF" strokeWidth="3" opacity="0.6" />
+          <line x1="0" y1="180" x2="400" y2="190" stroke="#FFFFFF" strokeWidth="3" opacity="0.6" />
+          <line x1="130" y1="0" x2="115" y2="240" stroke="#FFFFFF" strokeWidth="3" opacity="0.6" />
+          <line x1="270" y1="0" x2="285" y2="240" stroke="#FFFFFF" strokeWidth="3" opacity="0.6" />
+          <line x1="0" y1="110" x2="400" y2="115" stroke="#FFFFFF" strokeWidth="2" opacity="0.4" />
+
           {routes.map((r) => {
             const points = [depot, ...r.stops]
+            const last = r.stops[r.stops.length - 1]
             return (
               <g key={r.markerId}>
                 {points.slice(0, -1).map((p, i) => {
@@ -97,6 +108,18 @@ export default function DashboardMockup() {
                     />
                   )
                 })}
+                {/* retur til depot - stiplet, samme farve, så ruten lukkes i en rundtur */}
+                <line
+                  x1={last[0]}
+                  y1={last[1]}
+                  x2={depot[0]}
+                  y2={depot[1]}
+                  stroke={r.color}
+                  strokeWidth="2"
+                  strokeDasharray="5 4"
+                  opacity="0.7"
+                  markerEnd={`url(#${r.markerId})`}
+                />
                 {r.stops.map((s, i) => (
                   <g key={i}>
                     <circle cx={s[0]} cy={s[1]} r="10" fill={r.color} stroke="#F1ECE2" strokeWidth="2.5" />
