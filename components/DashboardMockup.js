@@ -60,7 +60,11 @@ export default function DashboardMockup() {
 
       {/* rute-diagram: depot i midten, tre farvede ruter grener ud til i alt 8 stop */}
       <div className="mx-4 mb-4 rounded-lg overflow-hidden bg-[#F1ECE2] h-48">
-        <svg viewBox="0 0 400 240" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+        <svg
+          viewBox="0 0 400 240"
+          className="block w-full h-full"
+          preserveAspectRatio="none"
+        >
           <defs>
             {routes.map((r) => (
               <marker
@@ -69,14 +73,17 @@ export default function DashboardMockup() {
                 viewBox="0 0 10 10"
                 refX="8"
                 refY="5"
-                markerWidth="5"
-                markerHeight="5"
+                markerWidth="7"
+                markerHeight="7"
                 orient="auto-start-reverse"
               >
                 <path d="M0,0 L10,5 L0,10 z" fill={r.color} />
               </marker>
             ))}
           </defs>
+
+          {/* fuld baggrund - kortets "grund", så der ikke kan opstå huller i hjørnerne */}
+          <rect x="0" y="0" width="400" height="240" fill="#F1ECE2" />
 
           {/* kort-baggrund: park, vand og et par lyse "veje" så ruterne ser ud til at ligge på et kort */}
           <rect x="8" y="8" width="95" height="55" rx="10" fill="#CFE0C6" opacity="0.8" />
@@ -108,16 +115,14 @@ export default function DashboardMockup() {
                     />
                   )
                 })}
-                {/* retur til depot - stiplet, samme farve, så ruten lukkes i en rundtur */}
+                {/* retur til depot - samme streg-stil som resten, pilen viser retningen hjem */}
                 <line
                   x1={last[0]}
                   y1={last[1]}
                   x2={depot[0]}
                   y2={depot[1]}
                   stroke={r.color}
-                  strokeWidth="2"
-                  strokeDasharray="5 4"
-                  opacity="0.7"
+                  strokeWidth="2.5"
                   markerEnd={`url(#${r.markerId})`}
                 />
                 {r.stops.map((s, i) => (
