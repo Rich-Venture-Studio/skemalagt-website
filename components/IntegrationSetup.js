@@ -41,11 +41,11 @@ export default function IntegrationSetup() {
           <div className="bg-teal-900 rounded-xl p-8 sm:p-10">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
               <div className="bg-teal-800 border border-cream/10 rounded-lg px-5 py-4 text-center text-cream text-sm font-medium w-full sm:w-40">
-                Jeres system / ERP / CRM
+                Jeres ERP / CRM system
               </div>
               <SyncArrows className="w-14 h-14 sm:w-16 sm:h-16 text-copper flex-shrink-0 rotate-90 sm:rotate-0" />
               <div className="bg-copper border border-copper-light/40 rounded-lg px-5 py-4 text-center text-white text-sm font-semibold w-full sm:w-40">
-                SKEMALAGT / Optimering
+                Skemalagt
               </div>
             </div>
             <p className="mt-8 text-center text-cream/60 text-sm">

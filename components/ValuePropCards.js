@@ -2,8 +2,8 @@ import { ClockIcon, MailIcon, BalanceIcon } from './ValuePropIcons'
 
 const cards = [
   {
-    title: '1,5 time spildt pr. dag',
-    body: 'Estimatet er baseret på en tekniker med 3-4 besøg om dagen, der typisk bruger halvanden time bag rattet mellem opgaverne – tid der kan hentes tilbage med smartere ruter.',
+    title: 'Skemalagt skærer køretiden ned',
+    body: 'En tekniker med 3-4 besøg om dagen bruger typisk halvanden time bag rattet mellem opgaverne. Skemalagts ruteoptimering reducerer køretiden med op til 20%, så mere af dagen går til opgaver i stedet for kørsel.',
     Icon: ClockIcon,
   },
   {

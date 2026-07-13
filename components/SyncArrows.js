@@ -19,17 +19,21 @@ export default function SyncArrows({ className = '' }) {
         </marker>
       </defs>
       {/* frem: ERP -> Skemalagt */}
-      <path
-        d="M6 24 Q 32 4 58 24"
-        fill="none"
+      <line
+        x1="6"
+        y1="24"
+        x2="58"
+        y2="24"
         stroke="currentColor"
         strokeWidth="3"
         markerEnd="url(#syncArrowHead)"
       />
       {/* retur: Skemalagt -> ERP */}
-      <path
-        d="M58 40 Q 32 60 6 40"
-        fill="none"
+      <line
+        x1="58"
+        y1="42"
+        x2="6"
+        y2="42"
         stroke="currentColor"
         strokeWidth="3"
         markerEnd="url(#syncArrowHead)"

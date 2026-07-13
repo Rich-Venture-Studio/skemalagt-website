@@ -13,10 +13,10 @@ export default function HomePage() {
     <>
       <Hero />
       <IntegrationsStrip />
+      <IntegrationSetup />
       <ValuePropCards />
       <FeatureCards />
       <HowItWorksTeaser />
-      <IntegrationSetup />
       <ResultsStats />
       <IndustryCards />
       <FinalCta />
