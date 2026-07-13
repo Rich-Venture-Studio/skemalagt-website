@@ -54,33 +54,17 @@ export default function SaadanVirkerDetPage() {
       <section className="bg-teal-900 text-cream">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold">Sådan virker det</h1>
-          <p className="mt-5 text-lg text-cream/80">
-            Skemalagt er automatisk planlægning og ruteoptimering til danske håndværks- og
-            servicevirksomheder – forbundet direkte til jeres eksisterende system.
-          </p>
-        </div>
-      </section>
-
-      <section className="bg-cream">
-        <div className="mx-auto max-w-4xl px-6 py-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">Hvad er Skemalagt</h2>
-          <p className="mt-4 text-teal-900/75 leading-relaxed">
+          <p className="mt-5 text-lg text-cream/80 max-w-2xl mx-auto">
             Skemalagt er en dansk platform der automatiserer vagtplanlægning og ruteoptimering for
             service- og håndværksvirksomheder. Systemet forbinder sig til jeres eksisterende ERP,
             analyserer opgaver og medarbejdere, og planlægger derefter både skema og ruter, så I
             bruger mindre tid på administration og mere tid på kunderne.
           </p>
-        </div>
-      </section>
-
-      <section className="bg-white">
-        <div className="mx-auto max-w-4xl px-6 py-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">Hvem er det til</h2>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             {audience.map((a) => (
               <span
                 key={a}
-                className="bg-cream border border-teal-900/10 text-teal-900 font-medium px-4 py-2 rounded-full text-sm"
+                className="bg-cream/10 border border-cream/20 text-cream font-medium px-4 py-2 rounded-full text-sm"
               >
                 {a}
               </span>
@@ -89,7 +73,7 @@ export default function SaadanVirkerDetPage() {
         </div>
       </section>
 
-      <section className="bg-teal-900 text-cream">
+      <section className="bg-teal-900 text-cream border-t border-cream/10">
         <div className="mx-auto max-w-4xl px-6 py-16">
           <h2 className="text-2xl sm:text-3xl font-bold">Sådan kommer I i gang</h2>
           <div className="mt-10 space-y-8">
