@@ -9,7 +9,7 @@
 
 const techs = [
   { name: 'Frank', role: 'VVS-tekniker', jobs: '3 opgaver', from: 'fra 08:30', color: 'bg-copper' },
-  { name: 'Anders', role: 'Elektriker', jobs: '3 opgaver', from: 'fra 09:00', color: 'bg-cream' },
+  { name: 'Anders', role: 'Elektriker', jobs: '3 opgaver', from: 'fra 09:00', color: 'bg-teal-900 border border-cream/50' },
   { name: 'Michael', role: 'Tømrer', jobs: '2 opgaver', from: 'fra 10:00', color: 'bg-copper-light' },
 ]
 

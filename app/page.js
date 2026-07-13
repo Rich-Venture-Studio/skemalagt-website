@@ -12,13 +12,13 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <IntegrationsStrip />
-      <IntegrationSetup />
       <ValuePropCards />
       <FeatureCards />
       <HowItWorksTeaser />
       <ResultsStats />
       <IndustryCards />
+      <IntegrationsStrip />
+      <IntegrationSetup />
       <FinalCta />
     </>
   )
