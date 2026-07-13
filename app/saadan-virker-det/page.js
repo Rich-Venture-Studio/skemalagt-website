@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import FinalCta from '@/components/FinalCta'
+import DashboardMockup from '@/components/DashboardMockup'
+import CalendarMockup from '@/components/CalendarMockup'
 
 export const metadata = {
   title: 'Sådan virker det – Skemalagt',
@@ -103,6 +105,46 @@ export default function SaadanVirkerDetPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ruteoptimering vist i praksis - genbruger hero-mockuppen fra forsiden */}
+      <section className="bg-cream">
+        <div className="mx-auto max-w-6xl px-6 py-16 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">
+              Ruteoptimering i praksis
+            </h2>
+            <p className="mt-4 text-teal-900/75 leading-relaxed">
+              Hver morgen samler Skemalagt dagens opgaver og fordeler dem mellem teknikerne ud fra
+              kompetencer, tilgængelighed, lokation og myldretid. Hver rute starter og slutter
+              samme sted, så ingen kører unødvendige omveje.
+            </p>
+            <p className="mt-4 text-teal-900/75 leading-relaxed">
+              Herunder ser du et eksempel: tre teknikere med otte opgaver bliver til tre
+              optimerede ruter, automatisk.
+            </p>
+          </div>
+          <div>
+            <DashboardMockup />
+          </div>
+        </div>
+      </section>
+
+      {/* ugeplan vist i praksis - genbruger kalender-mockuppen fra forsiden */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-4xl px-6 py-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">
+            Jeres uge, samlet ét sted
+          </h2>
+          <p className="mt-4 text-teal-900/75 leading-relaxed">
+            I stedet for at stykke skemaet sammen dag for dag, ser I hele ugen på én gang.
+            Herunder er et eksempel med tre teknikere og en fyldt uge, opgaver hele vejen igennem,
+            ingen huller.
+          </p>
+        </div>
+        <div className="mx-auto max-w-4xl px-6 pb-16">
+          <CalendarMockup />
         </div>
       </section>
 
